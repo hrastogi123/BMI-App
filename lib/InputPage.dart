@@ -5,7 +5,6 @@ import 'card_content.dart';
 import 'resuable_card.dart';
 import 'constant.dart';
 
-
 enum gender {
   male,
   female,
@@ -19,6 +18,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   gender select;
   int height = 180;
+  int weight = 60;
+  int age = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -68,35 +69,47 @@ class _InputPageState extends State<InputPage> {
               )),
               Expanded(
                   child: ReuseableCard(
-                    colour: activecardColor,
-                    cardChild: Column(
+                colour: activecardColor,
+                cardChild: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'HEIGHT',
+                      style: lableTextStyle,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
                       children: <Widget>[
-                        Text('HEIGHT',style: lableTextStyle,),
+                        Text(
+                          height.toString(),
+                          style: numberTextStyle,
+                        ),
                         SizedBox(
-                         height: 10,
+                          width: 5,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.baseline,
-                          textBaseline: TextBaseline.alphabetic,
-                          children: <Widget>[
-                            Text(height.toString(),style: numberTextStyle,),
-                            Text('cm',style: lableTextStyle,),
-                          ],
+                        Text(
+                          'cm',
+                          style: lableTextStyle,
                         ),
-                       Slider(
-                           value: height.toDouble(),
-                           min: 120,
-                           max: 220,
-                           activeColor: Color(0xFFEB1555),
-                           onChanged: (double newValue){
-                             setState(() {
-                               height = newValue.round();
-                             });
-                           })
                       ],
                     ),
+                    Slider(
+                        value: height.toDouble(),
+                        min: 120,
+                        max: 220,
+                        activeColor: Color(0xFFEB1555),
+                        onChanged: (double newValue) {
+                          setState(() {
+                            height = newValue.round();
+                          });
+                        }),
+                  ],
+                ),
               )),
               Expanded(
                   child: Row(
@@ -104,15 +117,130 @@ class _InputPageState extends State<InputPage> {
                   Expanded(
                       child: ReuseableCard(
                     colour: activecardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'WEIGHT',
+                          style: lableTextStyle,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: <Widget>[
+                            Text(
+                              weight.toString(),
+                              style: numberTextStyle,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Kg',
+                              style: lableTextStyle,
+                            )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPressed: (){
+                                setState(() {
+                                  weight--;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            RoundIconButton(
+                              onPressed: (){
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                              icon: FontAwesomeIcons.plus,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   )),
                   Expanded(
                       child: ReuseableCard(
                     colour: activecardColor,
+                        cardChild: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'AGE',
+                              style: lableTextStyle,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.baseline,
+                              textBaseline: TextBaseline.alphabetic,
+                              children: <Widget>[
+                                Text(
+                                  age.toString(),
+                                  style: numberTextStyle,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  'Years',
+                                  style: lableTextStyle,
+                                )
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                RoundIconButton(
+                                  icon: FontAwesomeIcons.minus,
+                                  onPressed: (){
+                                    setState(() {
+                                      age--;
+                                    });
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                RoundIconButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      age++;
+                                    });
+                                  },
+                                  icon: FontAwesomeIcons.plus,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                   ))
                 ],
               )),
               Container(
                 margin: EdgeInsets.only(top: 10),
+                child: Center(
+                  child: Text('CALCULATE',style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 30,
+                    letterSpacing: 1.7,
+                  )),
+                ),
                 decoration: BoxDecoration(
                   color: Color(0xFFEB1555),
                   borderRadius: BorderRadius.circular(7),
@@ -122,5 +250,25 @@ class _InputPageState extends State<InputPage> {
             ],
           ),
         ));
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  RoundIconButton({this.icon,@required this.onPressed});
+  final Function onPressed;
+  final IconData icon;
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      onPressed: onPressed,
+      child: Icon(icon,),
+      shape: CircleBorder(),
+      elevation: 100,
+      constraints: BoxConstraints.tightFor(
+        width: 56.0,
+        height: 56.0,
+      ),
+      fillColor: Color(0xFFEB1555),
+    );
   }
 }
