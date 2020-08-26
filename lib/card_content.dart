@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'constant.dart';
 
 class CardContent extends StatelessWidget {
   CardContent({this.icons, this.lable});
@@ -20,10 +21,7 @@ class CardContent extends StatelessWidget {
         ),
         Text(
           lable,
-          style: TextStyle(
-            color: Colors.blueGrey,
-            fontSize: 18.0,
-          ),
+          style: lableTextStyle,
         )
       ],
     );

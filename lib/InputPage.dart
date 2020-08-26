@@ -1,11 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'card_content.dart';
 import 'resuable_card.dart';
+import 'constant.dart';
 
-const bottomContainerHeight = 70.0;
-const activecardColor = Color(0xFF1D1E33);
-const inactivecardColor = Color(0xFF111328);
+
 enum gender {
   male,
   female,
@@ -18,6 +18,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   gender select;
+  int height = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class _InputPageState extends State<InputPage> {
         ),
         body: SafeArea(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Expanded(
                   child: Row(
@@ -66,7 +68,35 @@ class _InputPageState extends State<InputPage> {
               )),
               Expanded(
                   child: ReuseableCard(
-                colour: activecardColor,
+                    colour: activecardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('HEIGHT',style: lableTextStyle,),
+                        SizedBox(
+                         height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: <Widget>[
+                            Text(height.toString(),style: numberTextStyle,),
+                            Text('cm',style: lableTextStyle,),
+                          ],
+                        ),
+                       Slider(
+                           value: height.toDouble(),
+                           min: 120,
+                           max: 220,
+                           activeColor: Color(0xFFEB1555),
+                           onChanged: (double newValue){
+                             setState(() {
+                               height = newValue.round();
+                             });
+                           })
+                      ],
+                    ),
               )),
               Expanded(
                   child: Row(
@@ -82,8 +112,11 @@ class _InputPageState extends State<InputPage> {
                 ],
               )),
               Container(
-                color: Color(0xFFEB1555),
                 margin: EdgeInsets.only(top: 10),
+                decoration: BoxDecoration(
+                  color: Color(0xFFEB1555),
+                  borderRadius: BorderRadius.circular(7),
+                ),
                 height: bottomContainerHeight,
               )
             ],
