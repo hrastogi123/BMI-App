@@ -6,6 +6,7 @@ import 'card_content.dart';
 import 'resuable_card.dart';
 import 'constant.dart';
 import 'result_page.dart';
+import 'package:bmi_app/BMIlogic.dart';
 
 enum gender {
   male,
@@ -236,7 +237,12 @@ class _InputPageState extends State<InputPage> {
               )),
               GestureDetector(
                 onTap:(){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage()));
+                  BMIbrain calc = BMIbrain(height: height, weight: weight);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ResultPage(
+                    bmiResult: calc.calculateBMI(),
+                    resultText: calc.getResult(),
+                    interpretation: calc.getInterpretation(),
+                  )));
                 },
                 child: Container(
                   margin: EdgeInsets.only(top: 10),

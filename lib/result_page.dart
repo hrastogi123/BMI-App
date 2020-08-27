@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 import 'resuable_card.dart';
 
 class ResultPage extends StatelessWidget {
+  ResultPage({@required this.bmiResult,@required this.resultText,@required this.interpretation});
+
+  final String bmiResult;
+ final String resultText;
+ final String interpretation;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,20 +38,20 @@ class ResultPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    'Normal',
+                    resultText.toUpperCase(),
                     style: TextStyle(
                       fontSize: 22,
                       color: Colors.green,
                     ),
                   ),
                   Text(
-                    '18.5',
+                     bmiResult,
                     style: TextStyle(
                       fontSize: 100,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text('Your BMI is Low, Eat More !', style: lableTextStyle),
+                  Text(interpretation, style: lableTextStyle),
                 ],
               ),
             ),
